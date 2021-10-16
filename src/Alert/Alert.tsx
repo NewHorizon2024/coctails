@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Box, Typography, Alert, styled } from "@mui/material";
 
+interface AlertProps {
+  severity: "error" | "info";
+  message: string;
+}
 const AlertBox = styled(Box)(() => ({
   position: "fixed",
   left: "0",
@@ -13,19 +17,20 @@ const AlertBox = styled(Box)(() => ({
   width: "fit-content",
 }));
 
-const UserAlertRoot: React.FC = () => {
+const UserAlertRoot: React.FC<AlertProps> = (props) => {
   return (
     <AlertBox>
-      <Alert severity="error">
-        <Typography variant="body1">
-          Network error - please try again later!
-        </Typography>
+      <Alert severity={props.severity}>
+        <Typography variant="body1">{props.message}</Typography>
       </Alert>
     </AlertBox>
   );
 };
 
-export const UserAlert: React.FC = () => {
+export const UserAlert: React.FC<AlertProps> = (props) => {
   const alertRoot = document.getElementById("alert") as HTMLDivElement;
-  return ReactDOM.createPortal(<UserAlertRoot />, alertRoot);
+  return ReactDOM.createPortal(
+    <UserAlertRoot severity={props.severity} message={props.message} />,
+    alertRoot
+  );
 };

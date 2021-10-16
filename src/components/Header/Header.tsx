@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+//router
+import { useHistory } from "react-router-dom";
 
 const SigHeader = styled(Box)(({ theme }) => ({
   width: "100vw",
@@ -22,9 +24,13 @@ const Typo = styled(Typography)(({ theme }) => ({
 }));
 
 const Head: React.FC = () => {
+  const history = useHistory();
+  const clickHandler = () => {
+    history.push("/");
+  };
   return (
     <SigHeader>
-      <Typo variant="h5" children="Sig Drinks" />
+      <Typo variant="h5" children="Sig Drinks" onClick={clickHandler} />
     </SigHeader>
   );
 };

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { coctailStore } from "./coctailSlice";
 import { coctailState } from "./coctailState";
+import { coctailData } from "./coctailDetails";
 
 const store = configureStore({
   reducer: {
     coca: coctailStore.reducer,
     cocaState: coctailState.reducer,
+    coctaildata: coctailData.reducer,
   },
 });
 

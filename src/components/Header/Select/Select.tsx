@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/coctailStore";
+import { coctailAction } from "../../../store/coctailSlice";
+import { coctailStateActions } from "../../../store/coctailState";
 import { styled } from "@mui/material/styles";
 import {
   Box,
@@ -18,6 +22,7 @@ const SelectBar = styled(Box)(({ theme }) => ({
 const SelectAndSearch: React.FC = () => {
   const [letters, setLetters] = useState<string[]>([]);
   const [selEvent, setSelEvent] = useState<string>("");
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     let arr = [];
@@ -29,7 +34,25 @@ const SelectAndSearch: React.FC = () => {
 
   const changeHandler = (event: SelectChangeEvent) => {
     event.preventDefault();
-    setSelEvent(event.target.value);
+    const value = event.target.value;
+    setSelEvent(value);
+    dispatch(coctailStateActions.coctailLoading());
+    dispatch(coctailStateActions.networkState("active"));
+    window
+      .fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("failed");
+        }
+      })
+      .then((data) => dispatch(coctailAction.storeCoctails(data["drinks"])))
+      .then(() => dispatch(coctailStateActions.coctailLoaded()))
+
+      .catch((err) => dispatch(coctailStateActions.networkState("inactive")));
   };
 
   return (

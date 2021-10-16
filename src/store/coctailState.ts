@@ -4,11 +4,13 @@ import { stat } from "fs";
 type State = {
   loaded: boolean;
   isNetwork: boolean;
+  thereIscoctails: boolean;
 };
 
 const coctailinitState: State = {
   loaded: false,
   isNetwork: true,
+  thereIscoctails: true,
 };
 
 export const coctailState = createSlice({
@@ -28,6 +30,14 @@ export const coctailState = createSlice({
 
       if (action.payload === "inactive") {
         state.isNetwork = false;
+      }
+    },
+    productsState(state, action) {
+      if (action.payload === "1") {
+        state.thereIscoctails = true;
+      }
+      if (action.payload === "0") {
+        state.thereIscoctails = false;
       }
     },
   },

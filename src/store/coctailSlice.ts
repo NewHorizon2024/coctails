@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./coctailStore";
 
 export type Data = {
   coctails: [];

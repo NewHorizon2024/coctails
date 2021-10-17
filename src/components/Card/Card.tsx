@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import { styled } from "@mui/material/styles";
 import { Paper, Typography } from "@mui/material";
-
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store/coctailStore";
 import { coctailDetailActions } from "../../store/coctailDetails";
+//router
+import { useHistory } from "react-router-dom";
 // Skeletons
 import { Skeletons } from "../../Skeleton/Skeleton";
 
@@ -34,6 +35,7 @@ const DrinkName = styled(Typography)(() => ({
 }));
 
 const CardCoctail: React.FC<CardProps> = (props) => {
+  const history = useHistory();
   const coctailName = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
   const loaded = useSelector<RootState, boolean>(
@@ -56,10 +58,13 @@ const CardCoctail: React.FC<CardProps> = (props) => {
 
   const clickHandler = () => {
     if (coctailName.current) {
+      dispatch(coctailDetailActions.gurdPath(true));
       const cocName = coctailName.current.textContent;
       const cocObj = coctails.filter((item) => item["strDrink"] === cocName);
       window.sessionStorage.setItem("cocD", JSON.stringify(cocObj));
+      window.sessionStorage.setItem("gurd", "1");
       dispatch(coctailDetailActions.getDetails(cocObj));
+      history.push("/details");
     }
   };
 

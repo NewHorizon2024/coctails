@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "./components/Header/Header";
 import GridLayout from "./layouts/Grid";
 import Details from "./components/Details/Details";
@@ -7,16 +7,20 @@ import { UserAlert } from "./Alert/Alert";
 // redux
 import { coctailAction } from "./store/coctailSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { coctailStateActions } from "./store/coctailState";
+import { coctailState, coctailStateActions } from "./store/coctailState";
 // types
 import { RootState, AppDispatch } from "./store/coctailStore";
 //react router
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { coctailDetailActions } from "./store/coctailDetails";
 
 const connectivity = window.navigator.onLine;
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const gurdPath = useSelector<RootState, boolean>(
+    (state) => state.coctaildata.openDetails
+  );
   const coctailsState = useSelector<RootState, []>(
     (state) => state.coca.coctails
   );
@@ -25,6 +29,10 @@ const App: React.FC = () => {
   );
   const products = useSelector<RootState, boolean>(
     (state) => state.cocaState.thereIscoctails
+  );
+
+  const logloClicked = useSelector<RootState, boolean>(
+    (state) => state.appToggle.toggle
   );
 
   useEffect(() => {
@@ -44,7 +52,7 @@ const App: React.FC = () => {
       })
       .then(() => dispatch(coctailStateActions.coctailLoaded()))
       .catch((err) => dispatch(coctailStateActions.networkState("inactive")));
-  }, [dispatch]);
+  }, [dispatch, logloClicked]);
 
   return (
     <div>

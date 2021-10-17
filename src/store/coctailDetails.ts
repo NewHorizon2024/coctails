@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface CoctailDetails {
   cocDetail: {};
+  openDetails: boolean;
 }
 
 const coctailD: CoctailDetails = {
   cocDetail: {},
+  openDetails: false,
 };
 
 export const coctailData = createSlice({
@@ -13,7 +15,11 @@ export const coctailData = createSlice({
   initialState: coctailD,
   reducers: {
     getDetails(state, action) {
+      console.log(action.payload);
       state.cocDetail = action.payload;
+    },
+    gurdPath(state, action) {
+      state.openDetails = action.payload;
     },
   },
 });

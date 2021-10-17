@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+//redux
+import { useDispatch } from "react-redux";
+import { appStateActions } from "../../store/appState";
+import { AppDispatch } from "../../store/coctailStore";
 //router
 import { useHistory } from "react-router-dom";
 
@@ -24,10 +28,15 @@ const Typo = styled(Typography)(({ theme }) => ({
 }));
 
 const Head: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const history = useHistory();
   const clickHandler = () => {
     history.push("/");
+    window.sessionStorage.setItem("gurd", "0");
+    dispatch(appStateActions.main());
   };
+
   return (
     <SigHeader>
       <Typo variant="h5" children="Sig Drinks" onClick={clickHandler} />

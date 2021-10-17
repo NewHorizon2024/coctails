@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/coctailStore";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/coctailStore";
 import { coctailAction } from "../../../store/coctailSlice";
 import { coctailStateActions } from "../../../store/coctailState";
 import { styled } from "@mui/material/styles";
@@ -22,6 +22,9 @@ const SelectBar = styled(Box)(({ theme }) => ({
 const SelectAndSearch: React.FC = () => {
   const [letters, setLetters] = useState<string[]>([]);
   const [selEvent, setSelEvent] = useState<string>("");
+  const logoClicked = useSelector<RootState, boolean>(
+    (state) => state.appToggle.toggle
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -31,6 +34,8 @@ const SelectAndSearch: React.FC = () => {
     }
     setLetters(arr);
   }, []);
+
+  useEffect(() => setSelEvent(""), [logoClicked]);
 
   const changeHandler = (event: SelectChangeEvent) => {
     event.preventDefault();

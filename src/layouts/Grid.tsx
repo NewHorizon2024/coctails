@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SelectAndSearch from "../components/Header/Select/Select";
@@ -30,24 +30,12 @@ export const GridHead = styled(Box)(({ theme }) => ({
 }));
 
 const GridLayout: React.FC<GridProps> = (props) => {
+  useEffect(() => {
+    !props.coctails
+      ? dispatch(coctailStateActions.productsState("0"))
+      : dispatch(coctailStateActions.productsState("1"));
+  }, [props.coctails]);
   const dispatch = useDispatch<AppDispatch>();
-
-  const render = (): null | JSX.Element[] => {
-    if (!props.coctails) {
-      dispatch(coctailStateActions.productsState("0"));
-      return null;
-    } else {
-      dispatch(coctailStateActions.productsState("1"));
-      const items = props.coctails.map((coctail: any, index: any) => {
-        return (
-          <Grid item key={index.toString()} xs={12} sm={6} md={6} lg={4} xl={3}>
-            <CardCoctail name={coctail.strDrink} src={coctail.strDrinkThumb} />
-          </Grid>
-        );
-      });
-      return items;
-    }
-  };
 
   return (
     <Layout>
@@ -55,7 +43,26 @@ const GridLayout: React.FC<GridProps> = (props) => {
         <SelectAndSearch />
       </GridHead>
       <Grid container spacing={2}>
-        {render()}
+        {props.coctails
+          ? props.coctails.map((coctail: any, index: any) => {
+              return (
+                <Grid
+                  item
+                  key={index.toString()}
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                >
+                  <CardCoctail
+                    name={coctail.strDrink}
+                    src={coctail.strDrinkThumb}
+                  />
+                </Grid>
+              );
+            })
+          : null}
       </Grid>
     </Layout>
   );

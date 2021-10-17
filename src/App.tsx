@@ -12,7 +12,9 @@ import { coctailStateActions } from "./store/coctailState";
 import { RootState, AppDispatch } from "./store/coctailStore";
 //react router
 import { Route, Switch } from "react-router-dom";
+
 const connectivity = window.navigator.onLine;
+
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const coctailsState = useSelector<RootState, []>(
@@ -42,7 +44,7 @@ const App: React.FC = () => {
       })
       .then(() => dispatch(coctailStateActions.coctailLoaded()))
       .catch((err) => dispatch(coctailStateActions.networkState("inactive")));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

@@ -42,11 +42,6 @@ const CardCoctail: React.FC<CardProps> = (props) => {
 
   const coctails = useSelector<RootState, []>((state) => state.coca.coctails);
 
-  //test
-  const testo = useSelector<RootState, object>(
-    (state) => state.coctaildata.cocDetail
-  );
-
   const image = useRef<HTMLImageElement>(null);
 
   const hoverHanlder = () => {

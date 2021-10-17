@@ -5,6 +5,7 @@ import { Layout, GridHead } from "../../layouts/Grid";
 const CoctailName = styled(Typography)(() => ({
   color: "#2b2b2b",
 }));
+
 const Details: React.FC = () => {
   return (
     <Layout>

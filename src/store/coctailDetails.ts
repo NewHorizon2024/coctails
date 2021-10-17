@@ -15,7 +15,6 @@ export const coctailData = createSlice({
   initialState: coctailD,
   reducers: {
     getDetails(state, action) {
-      console.log(action.payload);
       state.cocDetail = action.payload;
     },
     gurdPath(state, action) {

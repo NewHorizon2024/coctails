@@ -7,6 +7,7 @@ import CardCoctail from "../components/Card/Card";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/coctailStore";
 import { coctailStateActions } from "../store/coctailState";
+import { coctailAction } from "../store/coctailSlice";
 
 interface GridProps {
   coctails: [];
@@ -31,6 +32,7 @@ export const GridHead = styled(Box)(({ theme }) => ({
 
 const GridLayout: React.FC<GridProps> = (props) => {
   useEffect(() => {
+    dispatch(coctailAction.clearRelatedIng());
     !props.coctails
       ? dispatch(coctailStateActions.productsState("0"))
       : dispatch(coctailStateActions.productsState("1"));

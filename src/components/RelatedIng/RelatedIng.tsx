@@ -1,15 +1,11 @@
 import React, { useRef } from "react";
 import { styled } from "@mui/material/styles";
 import { Paper, Typography } from "@mui/material";
+import { Skeletons } from "../../Skeleton/Skeleton";
 //redux
 import { useSelector, useDispatch } from "react-redux";
+//types[store]
 import { RootState, AppDispatch } from "../../store/coctailStore";
-import { coctailDetailActions } from "../../store/coctailDetails";
-//router
-import { useHistory } from "react-router-dom";
-// Skeletons
-import { Skeletons } from "../../Skeleton/Skeleton";
-import { coctailAction } from "../../store/coctailSlice";
 
 interface CardProps {
   src: string;
@@ -18,11 +14,12 @@ interface CardProps {
 
 const CardPaper = styled(Paper)(() => ({
   width: "inherit",
+  minHeight: "430px",
   display: "flex",
   flexDirection: "column",
   userSelect: "none",
-  cursor: "pointer",
   overflow: "hidden",
+  marginBottom: "10px",
   zIndex: 1,
 }));
 
@@ -35,15 +32,11 @@ const DrinkName = styled(Typography)(() => ({
   color: "#2b2b2b",
 }));
 
-const CardCoctail: React.FC<CardProps> = (props) => {
-  const history = useHistory();
+const IngRelated: React.FC<CardProps> = (props) => {
   const coctailName = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch<AppDispatch>();
   const loaded = useSelector<RootState, boolean>(
     (state) => state.cocaState.loaded
   );
-
-  const coctails = useSelector<RootState, []>((state) => state.coca.coctails);
 
   const image = useRef<HTMLImageElement>(null);
 
@@ -57,25 +50,8 @@ const CardCoctail: React.FC<CardProps> = (props) => {
     return image.current ? (image.current.style.transform = "scale(1)") : null;
   };
 
-  const clickHandler = () => {
-    if (coctailName.current) {
-      dispatch(coctailDetailActions.gurdPath(true));
-      const cocName = coctailName.current.textContent;
-      const cocObj = coctails.filter((item) => item["strDrink"] === cocName);
-      window.sessionStorage.setItem("cocD", JSON.stringify(cocObj));
-      window.sessionStorage.setItem("gurd", "1");
-      dispatch(coctailDetailActions.getDetails(cocObj));
-      history.push("/details");
-    }
-  };
-
   return loaded ? (
-    <CardPaper
-      onClick={clickHandler}
-      onMouseOver={hoverHanlder}
-      onMouseOut={outHandler}
-      elevation={3}
-    >
+    <CardPaper onMouseOver={hoverHanlder} onMouseOut={outHandler} elevation={3}>
       <img
         ref={image}
         alt="coctail drink"
@@ -83,6 +59,7 @@ const CardCoctail: React.FC<CardProps> = (props) => {
         style={{
           borderRadius: "4px 4px 0px 0px",
           transition: "0.5s ease-out",
+          height: "380px",
         }}
       />
       <DrinkName ref={coctailName} children={props.name} />
@@ -94,4 +71,4 @@ const CardCoctail: React.FC<CardProps> = (props) => {
   );
 };
 
-export default CardCoctail;
+export default IngRelated;

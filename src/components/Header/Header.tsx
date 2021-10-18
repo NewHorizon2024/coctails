@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { Box, Typography } from "@mui/material";
+import { Typography, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 //redux
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import { AppDispatch } from "../../store/coctailStore";
 //router
 import { useHistory } from "react-router-dom";
 
-const SigHeader = styled(Box)(({ theme }) => ({
+const SigHeader = styled(Paper)(() => ({
   width: "100vw",
   height: "80px",
   boxSizing: "border-box",
@@ -17,9 +17,12 @@ const SigHeader = styled(Box)(({ theme }) => ({
   paddingRight: "50px",
   display: "flex",
   alignItems: "center",
+  backgroundColor: "#fff",
+  zIndex: 3,
+  marginBottom: "10px",
 }));
 
-const Typo = styled(Typography)(({ theme }) => ({
+const Typo = styled(Typography)(() => ({
   fontFamily: "Alatsi",
   userSelect: "none",
   cursor: "pointer",

@@ -29,14 +29,14 @@ const InfoRow = styled(Paper)(() => ({
   height: "fit-content",
   boxSizing: "border-box",
   padding: "20px",
-  marginBottom: "20px",
+  marginBottom: "10px",
 }));
 
 const Info: React.FC<InfoProps> = (props) => {
   return (
     <CoctailDetailsContainer>
       <InfoRow>
-        <Tag>Id:</Tag>
+        <Tag>Id</Tag>
         <Desc>{props.id}</Desc>
       </InfoRow>
       <InfoRow>

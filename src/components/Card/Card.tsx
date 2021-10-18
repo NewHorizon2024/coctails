@@ -9,7 +9,6 @@ import { coctailDetailActions } from "../../store/coctailDetails";
 import { useHistory } from "react-router-dom";
 // Skeletons
 import { Skeletons } from "../../Skeleton/Skeleton";
-import { coctailAction } from "../../store/coctailSlice";
 
 interface CardProps {
   src: string;

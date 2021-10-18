@@ -79,7 +79,13 @@ const IngredientsApp: React.FC = () => {
               ingredientName
             )}`
           )
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json();
+            } else {
+              throw new Error("failed");
+            }
+          })
           .then((data) => {
             dispatch(coctailAction.storeRelatedIng(data["drinks"]));
           });

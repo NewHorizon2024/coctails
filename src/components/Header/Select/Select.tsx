@@ -43,6 +43,7 @@ const SelectAndSearch: React.FC = () => {
     setSelEvent(value);
     dispatch(coctailStateActions.coctailLoading());
     dispatch(coctailStateActions.networkState("active"));
+
     window
       .fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`

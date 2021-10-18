@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header/Header";
 import GridLayout from "./layouts/Grid";
 import Details from "./components/Details/Details";
@@ -7,20 +7,17 @@ import { UserAlert } from "./Alert/Alert";
 // redux
 import { coctailAction } from "./store/coctailSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { coctailState, coctailStateActions } from "./store/coctailState";
+import { coctailStateActions } from "./store/coctailState";
 // types
 import { RootState, AppDispatch } from "./store/coctailStore";
 //react router
-import { Route, Switch, Redirect } from "react-router-dom";
-import { coctailDetailActions } from "./store/coctailDetails";
+import { Route, Switch } from "react-router-dom";
 
 const connectivity = window.navigator.onLine;
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const gurdPath = useSelector<RootState, boolean>(
-    (state) => state.coctaildata.openDetails
-  );
+
   const coctailsState = useSelector<RootState, []>(
     (state) => state.coca.coctails
   );

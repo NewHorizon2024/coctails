@@ -6,15 +6,21 @@ interface AlertProps {
   severity: "error" | "info";
   message: string;
 }
-const AlertBox = styled(Box)(() => ({
+const AlertBox = styled(Box)(({ theme }) => ({
   position: "fixed",
   left: "0",
   right: "0",
   top: "0",
   margin: "auto",
-  marginTop: "20px",
+  marginTop: "90px",
   zIndex: 4,
   width: "fit-content",
+  [theme.breakpoints.down("md")]: {
+    marginTop: "80px",
+  },
+  [theme.breakpoints.down("md")]: {
+    marginTop: "60px",
+  },
 }));
 
 const UserAlertRoot: React.FC<AlertProps> = (props) => {

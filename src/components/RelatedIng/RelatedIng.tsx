@@ -3,9 +3,9 @@ import { styled } from "@mui/material/styles";
 import { Paper, Typography } from "@mui/material";
 import { Skeletons } from "../../Skeleton/Skeleton";
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 //types[store]
-import { RootState, AppDispatch } from "../../store/coctailStore";
+import { RootState } from "../../store/coctailStore";
 
 interface CardProps {
   src: string;
